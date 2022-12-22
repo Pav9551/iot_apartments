@@ -129,4 +129,4 @@ dmypy.json
 .pyre/
 ./mosquitto/config/passwd
 
-./.idea
+/.idea/
