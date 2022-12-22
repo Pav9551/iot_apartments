@@ -3,7 +3,7 @@ version: '3.7'
 services:
   mosquitto:
     container_name: mosquitto
-    image: eclipse-mosquitto:latest
+    image: eclipse-mosquitto:1.6.12
     restart: always
     volumes:
       - ./mosquitto/config:/mosquitto/config

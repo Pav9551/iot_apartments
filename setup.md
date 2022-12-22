@@ -23,6 +23,12 @@ sudo chmod 777 ./mosquitto/config/passwd
 
 docker exec -it mosquitto mosquitto_passwd -c  /mosquitto/config/passwd
 
+touch ./mosquitto/log/mosquitto.log
+sudo chmod 777 ./mosquitto/log/mosquitto.log
+
+touch ./mosquitto/data/mosquitto.db.new
+sudo chmod 777 ./mosquitto/data/mosquitto.db.new
+
 docker-compose exec mosquitto mosquitto_passwd -c /mosquitto/config/passwd mqtt_user
 
 ввести пароль для первого пользователя
