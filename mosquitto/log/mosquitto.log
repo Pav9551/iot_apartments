@@ -1,0 +1,105 @@
+1671695299: mosquitto version 1.6.12 starting
+1671695299: Config loaded from /mosquitto/config/mosquitto.conf.
+1671695299: Opening ipv4 listen socket on port 1883.
+1671695299: Opening ipv6 listen socket on port 1883.
+1671695299: mosquitto version 1.6.12 running
+1671695356: mosquitto version 1.6.12 terminating
+1671695356: Saving in-memory database to /mosquitto/datamosquitto.db.
+1671695356: Error saving in-memory database, unable to open /mosquitto/datamosquitto.db.new for writing.
+1671695356: Error: Permission denied.
+1671695372: mosquitto version 1.6.12 starting
+1671695372: Config loaded from /mosquitto/config/mosquitto.conf.
+1671695372: Opening ipv4 listen socket on port 1883.
+1671695372: Opening ipv6 listen socket on port 1883.
+1671695372: mosquitto version 1.6.12 running
+1671695657: mosquitto version 1.6.12 terminating
+1671695657: Saving in-memory database to /mosquitto/datamosquitto.db.
+1671695657: Error saving in-memory database, unable to open /mosquitto/datamosquitto.db.new for writing.
+1671695657: Error: Permission denied.
+1671695664: mosquitto version 1.6.12 starting
+1671695664: Config loaded from /mosquitto/config/mosquitto.conf.
+1671695664: Opening ipv4 listen socket on port 1883.
+1671695664: Opening ipv6 listen socket on port 1883.
+1671695664: mosquitto version 1.6.12 running
+1671696394: New connection from 192.168.176.1 on port 1883.
+1671696394: New client connected from 192.168.176.1 as nodered_f68562cc8dd428c2 (p2, c1, k60, u'mqtt_user').
+1671696504: Client nodered_f68562cc8dd428c2 disconnected.
+1671696504: New connection from 192.168.176.1 on port 1883.
+1671696504: New client connected from 192.168.176.1 as nodered_a65d5bcc5080c438 (p2, c1, k60, u'mqtt_user').
+1671696549: New connection from 192.168.176.1 on port 1883.
+1671696549: Client nodered_a65d5bcc5080c438 disconnected.
+1671696549: New client connected from 192.168.176.1 as nodered_c42c18de8eb67edc (p2, c1, k60, u'mqtt_user').
+1671696620: New connection from 192.168.176.1 on port 1883.
+1671696620: New client connected from 192.168.176.1 as nodered_6a29d7217267b2c7 (p2, c1, k60, u'mqtt_user').
+1671696620: Client nodered_c42c18de8eb67edc disconnected.
+1671696678: New connection from 192.168.176.1 on port 1883.
+1671696678: New client connected from 192.168.176.1 as nodered_5119604f6bde9cc4 (p2, c1, k60, u'mqtt_user').
+1671696678: Client nodered_6a29d7217267b2c7 disconnected.
+1671696694: New connection from 192.168.176.1 on port 1883.
+1671696694: New client connected from 192.168.176.1 as nodered_7177f92f6ceaee2f (p2, c1, k60, u'mqtt_user').
+1671696694: Client nodered_5119604f6bde9cc4 disconnected.
+1671696733: New connection from 192.168.176.1 on port 1883.
+1671696733: New client connected from 192.168.176.1 as nodered_33bb0795f72ba79d (p2, c1, k60, u'mqtt_user').
+1671696733: Client nodered_7177f92f6ceaee2f disconnected.
+1671696754: New connection from 192.168.176.1 on port 1883.
+1671696754: New client connected from 192.168.176.1 as nodered_419e7f5f723ed280 (p2, c1, k60, u'mqtt_user').
+1671696754: Client nodered_33bb0795f72ba79d disconnected.
+1671696790: New connection from 192.168.176.1 on port 1883.
+1671696790: New client connected from 192.168.176.1 as nodered_e67446065250a4a2 (p2, c1, k60, u'mqtt_user').
+1671696790: Client nodered_419e7f5f723ed280 disconnected.
+1671696813: New connection from 192.168.176.1 on port 1883.
+1671696813: New client connected from 192.168.176.1 as nodered_5e8f92eeb0c5a8ad (p2, c1, k60, u'mqtt_user').
+1671696813: Client nodered_e67446065250a4a2 disconnected.
+1671696837: New connection from 192.168.176.1 on port 1883.
+1671696837: New client connected from 192.168.176.1 as nodered_ba651105e14978b5 (p2, c1, k60, u'mqtt_user').
+1671696837: Client nodered_5e8f92eeb0c5a8ad disconnected.
+1671696859: New connection from 192.168.176.1 on port 1883.
+1671696859: New client connected from 192.168.176.1 as nodered_44cd2ff48e9bd741 (p2, c1, k60, u'mqtt_user').
+1671696859: Client nodered_ba651105e14978b5 disconnected.
+1671696884: New connection from 192.168.176.1 on port 1883.
+1671696884: New client connected from 192.168.176.1 as nodered_120218b08ef79396 (p2, c1, k60, u'mqtt_user').
+1671696884: Client nodered_44cd2ff48e9bd741 disconnected.
+1671696984: New connection from 192.168.176.1 on port 1883.
+1671696984: New client connected from 192.168.176.1 as nodered_d6de6fe901b39508 (p2, c1, k60, u'mqtt_user').
+1671696984: Client nodered_120218b08ef79396 disconnected.
+1671697007: Socket error on client nodered_d6de6fe901b39508, disconnecting.
+1671697007: mosquitto version 1.6.12 terminating
+1671697007: Saving in-memory database to /mosquitto/datamosquitto.db.
+1671697007: Error saving in-memory database, unable to open /mosquitto/datamosquitto.db.new for writing.
+1671697007: Error: Permission denied.
+1671698386: mosquitto version 2.0.14 starting
+1671698386: Config loaded from /mosquitto/config/mosquitto.conf.
+1671698386: Opening ipv4 listen socket on port 1883.
+1671698386: Opening ipv6 listen socket on port 1883.
+1671698386: mosquitto version 2.0.14 running
+1671698400: New connection from 172.19.0.1:39514 on port 1883.
+1671698400: New client connected from 172.19.0.1:39514 as nodered_97a585b5eec1c4d6 (p2, c1, k60, u'mqtt_user').
+1671700082: New connection from 172.19.0.1:39628 on port 1883.
+1671700082: Client nodered_97a585b5eec1c4d6 disconnected.
+1671700082: New client connected from 172.19.0.1:39628 as nodered_1875365121ed0c0f (p2, c1, k60, u'mqtt_user').
+1671700187: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1671701378: Client nodered_1875365121ed0c0f disconnected.
+1671701449: New connection from 172.19.0.1:39742 on port 1883.
+1671701449: New client connected from 172.19.0.1:39742 as nodered_389a0948c69e1b0a (p2, c1, k60, u'mqtt_user').
+1671701467: Client nodered_389a0948c69e1b0a disconnected.
+1671701479: New connection from 172.19.0.1:39750 on port 1883.
+1671701479: New client connected from 172.19.0.1:39750 as nodered_cb56e5e1b6d3a2f2 (p2, c1, k60, u'mqtt_user').
+1671701510: New connection from 172.19.0.1:39756 on port 1883.
+1671701510: New client connected from 172.19.0.1:39756 as nodered_fd7a3d1ca434eb95 (p2, c1, k60, u'mqtt_user').
+1671701510: Client nodered_cb56e5e1b6d3a2f2 disconnected.
+1671701632: New connection from 172.19.0.1:39768 on port 1883.
+1671701632: New client connected from 172.19.0.1:39768 as nodered_faad11e3b3d3e216 (p2, c1, k60, u'mqtt_user').
+1671701632: Client nodered_fd7a3d1ca434eb95 disconnected.
+1671701768: Client nodered_faad11e3b3d3e216 disconnected.
+1671701768: New connection from 172.19.0.1:39782 on port 1883.
+1671701768: New client connected from 172.19.0.1:39782 as nodered_e3888809d69217f2 (p2, c1, k60, u'mqtt_user').
+1671701785: New connection from 172.19.0.1:39788 on port 1883.
+1671701785: New client connected from 172.19.0.1:39788 as nodered_c8e337169cce0ffd (p2, c1, k60, u'mqtt_user').
+1671701785: Client nodered_e3888809d69217f2 disconnected.
+1671701867: New connection from 172.19.0.1:39796 on port 1883.
+1671701867: New client connected from 172.19.0.1:39796 as nodered_308e645604f72e8e (p2, c1, k60, u'mqtt_user').
+1671701867: Client nodered_c8e337169cce0ffd disconnected.
+1671701881: Client nodered_308e645604f72e8e disconnected.
+1671701881: New connection from 172.19.0.1:39804 on port 1883.
+1671701881: New client connected from 172.19.0.1:39804 as nodered_b7cf31cd01479a91 (p2, c1, k60, u'mqtt_user').
+1671701988: Saving in-memory database to /mosquitto/data/mosquitto.db.
