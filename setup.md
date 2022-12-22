@@ -16,10 +16,15 @@ mqtt_user
 
 
 1
+
+git clone https://github.com/Pav9551/iot_apartments
+
+sudo chmod 777 ./mosquitto/config/passwd
+
 docker exec -it mosquitto mosquitto_passwd -c  /mosquitto/config/passwd
 
-docker-compose exec mosquitto mosquitto_passwd -c /mosquitto/conf/mosquitto.passwd mosquitto mqtt_user
+docker-compose exec mosquitto mosquitto_passwd -c /mosquitto/config/passwd mqtt_user
 
 ввести пароль для первого пользователя
 
-docker-compose exec mosquitto mosquitto_passwd -b /mosquitto/conf/mosquitto.passwd seconduser shoaCh3ohnokeathal6eeH2marei2o
+docker-compose exec mosquitto mosquitto_passwd -b /mosquitto/config/passwd seconduser shoaCh3ohnokeathal6eeH2marei2o
