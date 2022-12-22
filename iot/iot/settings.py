@@ -15,12 +15,21 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+# библиотека для загрузки данных из env
+from dotenv import load_dotenv
+from os import getenv,path
+# метода ищет файл env и переменные из него
+dotenv_path = (BASE_DIR.parent / '.env').__str__()
+if path.exists(dotenv_path):
+    load_dotenv(dotenv_path)
+    print(".env: ok " + dotenv_path)
+else:
+    print(".env: err " + dotenv_path)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n*54$*06+o6z&*@&2l-a0q700mde#v&!#^z&+o3bdgvaxvjo(u'
+SECRET_KEY = getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
