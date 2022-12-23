@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 goods_path = (BASE_DIR / 'goods.xlsx').__str__()
 
 broker = '78.24.223.130'
-broker = '79.174.12.210'
+#broker = '79.174.12.210'
 port = 1883
 topic = "cab2/sensor/cab2_sound/state"
 
@@ -24,8 +24,8 @@ topic_sub = [("cab1/sensor/#", 0),
             ("room8/sensor/#", 0),
             ("room9/sensor/#", 0),
             ("room10/sensor/#", 0),
-            ("coridor1/sensor/#", 0),
-            ("coridor2/sensor/#", 0),
+            ("corridor1/sensor/#", 0),
+            ("corridor2/sensor/#", 0),
              ]
 # generate client ID with pub prefix randomly
 client_id = '123'
@@ -58,7 +58,14 @@ def publish(client, status):
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Recieved '{msg.payload.decode()}' from '{msg.topic}' topic")
-        building, created = Building.objects.get_or_create(name="Yakor", address ="Москва", disabled = True)
+        print(msg.topic.split("/")[0])
+        building, created = Building.objects.get_or_create(name="Yakor", address ="Москва, Потаповский переулок ст1", disabled = True)
+        room, created = Room.objects.get_or_create(name = msg.topic.split("/")[0], mqttPath = msg.topic.split("/")[0],  disabled=True, building = building)
+        deviceType, created  = DeviceType.objects.get_or_create(name = "ESP32")
+        plan, created = Plan.objects.get_or_create(name="1 этаж", building = building)
+        device, created = Device.objects.get_or_create(name = msg.topic.split("/")[2], mqttPath = msg.topic,  positionX=0, positionY=0,
+        enabled = True, type = deviceType, room = room, plan = plan)
+        data, created = Data.objects.get_or_create(name = msg.topic.split("/")[2], value = float(msg.payload.decode()), device = device)
         #publish(client, "'0.12'")
         #y = json.loads(msg.payload.decode())
         #temp = y["notification"]["parameters"]["temp"]

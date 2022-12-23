@@ -119,11 +119,12 @@ class Device(models.Model):
     def __str__(self):
         return self.name
 class Data(models.Model):
+    name = models.TextField()
     value = models.FloatField()
     createdAt = models.DateTimeField(auto_now_add=True)
     device = models.ForeignKey(Device, on_delete=models.CASCADE)
     def __str__(self):
-        return self.name
+        return ("{0:5.2f} ед. на датчике : {1} - {2}".format(self.value , self.name, self.createdAt))
 class User(models.Model):
     name = models.TextField()
     createdAt = models.DateTimeField(auto_now_add=True)

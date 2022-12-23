@@ -39,7 +39,7 @@ python manage.py createsuperuser
 Чтобы протестировать веб-сервис необходимо:
  - загрузить данные в базу:
 ```curl 
-python manage.py fill_****
+python manage.py fill_states
 ```
  - запустить сервер:
 ```curl 
