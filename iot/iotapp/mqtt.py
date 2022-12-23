@@ -1,6 +1,5 @@
 #from paho.mqtt import client as mqtt_client
 import paho.mqtt.client as mqtt_client
-import json
 #broker = '79.174.12.210'
 broker = '78.24.223.130'
 port = 1883
