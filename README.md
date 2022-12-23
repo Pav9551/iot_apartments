@@ -45,7 +45,7 @@ python manage.py fill_states
 ```curl 
 python manage.py runserver
 ```
- - перейти по адресу и посмотреть данные Merchandise через админку:
+ - перейти по адресу и посмотреть данные Datas через админку:
 ```curl 
 http://127.0.0.1:8000/admin/
 ```
