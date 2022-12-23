@@ -12,7 +12,7 @@ SECRET_KEY = 'django-insecure-1234567890'
 
  - перейти в папку iot с файлом manage.py:
 ```curl 
-cd blog
+cd iot
  ```
 
  - сбросить все миграции:
