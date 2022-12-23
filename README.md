@@ -17,7 +17,7 @@ cd blog
 
  - сбросить все миграции:
 ```curl 
-python manage.py migrate blogapp zero --fake
+python manage.py migrate iotapp zero --fake
 ```
  - удалить файлы миграции в каталоге migrations:
 ```curl 
@@ -39,7 +39,7 @@ python manage.py createsuperuser
 Чтобы протестировать веб-сервис необходимо:
  - загрузить данные в базу:
 ```curl 
-python manage.py fill_****
+python manage.py fill_states
 ```
  - запустить сервер:
 ```curl 

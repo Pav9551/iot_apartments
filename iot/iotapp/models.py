@@ -78,3 +78,60 @@ class Merchandise(models.Model):
     def __str__(self):
         return ("{0:2d}% скидка в магазине {1} на товар: {2}.".format(self.discount, self.market_name, self.name))
 
+class Building(models.Model):
+    name = models.TextField()
+    address = models.TextField()
+    disabled = models.BooleanField()
+    createdAt = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name
+class Room(models.Model):
+    name = models.TextField()
+    mqttPath = models.TextField()
+    disabled = models.BooleanField()
+    createdAt = models.DateTimeField(auto_now_add=True)
+    building = models.ForeignKey(Building, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+
+
+class DeviceType(models.Model):
+    name = models.TextField()
+    createdAt = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name
+class Plan(models.Model):
+    name = models.TextField()
+    createdAt = models.DateTimeField(auto_now_add=True)
+    building = models.ForeignKey(Building, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+class Device(models.Model):
+    name = models.TextField()
+    mqttPath = models.TextField()
+    positionX = models.FloatField()
+    positionY = models.FloatField()
+    enabled = models.BooleanField()
+    createdAt = models.DateTimeField(auto_now_add=True)
+    type = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
+    plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+class Data(models.Model):
+    name = models.TextField()
+    value = models.FloatField()
+    createdAt = models.DateTimeField(auto_now_add=True)
+    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    def __str__(self):
+        return ("{0:5.2f} ед. на датчике : {1} - {2}".format(self.value , self.name, self.createdAt))
+class User(models.Model):
+    name = models.TextField()
+    createdAt = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return self.name
+
+
+
+
+
