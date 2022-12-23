@@ -1,2 +1,2 @@
 from . import mqtt
-mqtt.mqtt_run()
+#mqtt.mqtt_run()

@@ -63,13 +63,15 @@ def subscribe(client: mqtt_client):
 def mqtt_run():
     client = connect_mqtt()
     subscribe(client)
+    publish(client, "'0.12'")
     client.loop_start()
 def main():
     client = connect_mqtt()
     subscribe(client)
-    #publish(client,"OK")
+    publish(client,"OK")
     client.loop_forever()
-print(__name__)
+print(__name__, " подключился к модулю")
 if __name__ == '__main__':
+    print("выполнился тестово")
     main()
 

@@ -17,7 +17,7 @@ cd blog
 
  - сбросить все миграции:
 ```curl 
-python manage.py migrate blogapp zero --fake
+python manage.py migrate iotapp zero --fake
 ```
  - удалить файлы миграции в каталоге migrations:
 ```curl 
