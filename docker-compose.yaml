@@ -1,6 +1,13 @@
 version: '3.7'
 
 services:
+  mqtttodb:
+    build: ./iot
+    container_name: fill_states
+    restart: always
+    volumes:
+      - ./iot:/iot
+    command: python manage.py fill_states
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto:2.0.14
