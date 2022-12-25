@@ -22,11 +22,11 @@ from os import getenv,path,environ
 dotenv_path = (BASE_DIR.parent / '.env').__str__()
 if path.exists(dotenv_path):
     load_dotenv(dotenv_path)
+    SECRET_KEY = getenv('SECRET_KEY')
     print(".env: ok " + dotenv_path)
 else:
     print(".env: err " + dotenv_path)
     print("getenv('SECRET_KEY')")
-    #SECRET_KEY = getenv('SECRET_KEY')
     SECRET_KEY = environ.get("SECRET_KEY")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/

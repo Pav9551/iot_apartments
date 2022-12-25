@@ -1,14 +1,13 @@
 from django.core.management.base import BaseCommand
-from iotapp.models import Merchandise
 from pathlib import Path
 import paho.mqtt.client as mqtt_client
 from iotapp.models import Building, Room, DeviceType, Plan, Device, Data
+import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 goods_path = (BASE_DIR / 'goods.xlsx').__str__()
 
 broker = '78.24.223.130'
-#broker = '79.174.12.210'
 port = 1883
 topic = "cab2/sensor/cab2_sound/state"
 
@@ -32,7 +31,8 @@ client_id = '123'
 username = 'mqtt_user'
 password = 'mqtt_user'
 deviceId = "1"
-
+listofdata = []
+count = 0
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
         if rc==0:
@@ -57,20 +57,38 @@ def publish(client, status):
         print(f"Failed to send message to topic {topic}")
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
-        print(f"Recieved '{msg.payload.decode()}' from '{msg.topic}' topic")
-        print(msg.topic.split("/")[0])
-        building, created = Building.objects.get_or_create(name="Yakor", address ="Москва, Потаповский переулок ст1", disabled = True)
-        room, created = Room.objects.get_or_create(name = msg.topic.split("/")[0], mqttPath = msg.topic.split("/")[0],  disabled=True, building = building)
-        deviceType, created  = DeviceType.objects.get_or_create(name = "ESP32")
-        plan, created = Plan.objects.get_or_create(name="1 этаж", building = building)
-        device, created = Device.objects.get_or_create(name = msg.topic.split("/")[2], mqttPath = msg.topic,  positionX=0, positionY=0,
-        enabled = True, type = deviceType, room = room, plan = plan)
-        data, created = Data.objects.get_or_create(name = msg.topic.split("/")[2], value = float(msg.payload.decode()), device = device)
-        #publish(client, "'0.12'")
-        #y = json.loads(msg.payload.decode())
-        #temp = y["notification"]["parameters"]["temp"]
-        #hum = y["notification"]["parameters"]["humi"]
-        #print("temperature: ",temp,", humidity:",hum)
+        #print(f"Recieved '{msg.payload.decode()}' from '{msg.topic}' topic")
+        #print(msg.topic.split("/")[0])
+        devices = Device.objects.filter(mqttPath = msg.topic)
+        global count# костыль
+        global listofdata  # костыль
+        if len(devices) > 0:
+            device = devices[0]
+        else:
+            #создание нового устройства
+            print("обнаружено новое устройство")
+            building, created = Building.objects.get_or_create(name="Yakor", address ="Москва, Потаповский переулок ст1", disabled = True)
+            room, created = Room.objects.get_or_create(name = msg.topic.split("/")[0], mqttPath = msg.topic.split("/")[0],  disabled=True, building = building)
+            deviceType, created  = DeviceType.objects.get_or_create(name = "ESP32")
+            plan, created = Plan.objects.get_or_create(name="1 этаж", building = building)
+            device, created = Device.objects.get_or_create(name = msg.topic.split("/")[2], mqttPath = msg.topic,  positionX=0, positionY=0,
+            enabled = True, type = deviceType, room = room, plan = plan)
+        new_data = Data(name = msg.topic.split("/")[2], value = float(msg.payload.decode()), device = device)
+        if count < 10:
+            listofdata.append(new_data)
+            count = count + 1
+            #print(count)
+        else:
+            count = 0
+            Data.objects.bulk_create(listofdata)
+            print(listofdata)
+            listofdata = []
+
+    def on_disconnect(client, userdata, rc):
+        if rc != 0:
+            sys.exit("Unexpected disconnection.")
+
+    client.on_disconnect = on_disconnect
     client.subscribe(topic_sub)
     client.on_message = on_message
 def mqtt_run():
@@ -85,9 +103,8 @@ def main():
     client.loop_forever()
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        Merchandise.objects.all().delete()
+        #Data.objects.all().delete()
         main()
-        print("удалено")
 
 
 

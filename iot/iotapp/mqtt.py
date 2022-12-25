@@ -67,7 +67,7 @@ def mqtt_run():
 def main():
     client = connect_mqtt()
     subscribe(client)
-    publish(client,"OK")
+    #publish(client,"OK")
     client.loop_forever()
 print(__name__, " подключился к модулю")
 if __name__ == '__main__':
