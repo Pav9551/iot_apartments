@@ -28,7 +28,7 @@ services:
       - MQTT_BROKER_URL=mqtt://mosquitto
   postgres:
     container_name: postgres
-    image: postgres
+    image: postgres:14.0-alpine
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./postgres/data:/var/lib/postgresql/data
