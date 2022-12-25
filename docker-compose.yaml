@@ -10,6 +10,8 @@ services:
     command: python manage.py fill_states
     env_file:
       - ./.env
+    depends_on:
+      - postgres
   mosquitto:
     container_name: mosquitto
     image: eclipse-mosquitto:2.0.14
