@@ -1,7 +1,12 @@
-#from paho.mqtt import client as mqtt_client
+# библиотека для загрузки данных из env
+from dotenv import load_dotenv
 import paho.mqtt.client as mqtt_client
-#broker = '79.174.12.210'
-broker = '78.24.223.130'
+from pathlib import Path
+from os import environ
+BASE_DIR = Path(__file__).resolve().parent.parent
+dotenv_path = (BASE_DIR.parent / '.env').__str__()
+load_dotenv(dotenv_path)
+broker = environ.get("MQTT_HOST", "localhost")
 port = 1883
 topic = "cab2/sensor/cab2_sound/state"
 

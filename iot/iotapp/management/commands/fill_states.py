@@ -2,12 +2,13 @@ from django.core.management.base import BaseCommand
 from pathlib import Path
 import paho.mqtt.client as mqtt_client
 from iotapp.models import Building, Room, DeviceType, Plan, Device, Data
+from os import environ
 import sys
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 goods_path = (BASE_DIR / 'goods.xlsx').__str__()
 
-broker = '78.24.223.130'
+broker = environ.get("MQTT_HOST", "localhost")
 port = 1883
 topic = "cab2/sensor/cab2_sound/state"
 
