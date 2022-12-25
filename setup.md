@@ -34,3 +34,5 @@ docker-compose exec mosquitto mosquitto_passwd -c /mosquitto/config/passwd mqtt_
 ввести пароль для первого пользователя
 
 docker-compose exec mosquitto mosquitto_passwd -b /mosquitto/config/passwd seconduser shoaCh3ohnokeathal6eeH2marei2o
+
+добавлена новая ветка 
