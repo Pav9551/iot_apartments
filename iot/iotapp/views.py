@@ -1,9 +1,11 @@
 from django.shortcuts import render
 #https://github.com/peopledoc/django-chartjs
-
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.http import HttpResponse
 #https://simpleisbetterthancomplex.com/tutorial/2020/01/19/how-to-use-chart-js-with-django.html
 # Create your views here.
 from random import randint
+from django.views import View
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView
 from chartjs.colors import next_color
@@ -31,7 +33,7 @@ class LineChartJSONView(ChartMixin,BaseLineChartView):
 class LineChartJSONView_Room1(ChartMixin,BaseLineChartView):
     def get_labels(self):
         """Return 7 labels."""
-        
+        print(self.kwargs['id'])
         X_labels = [1, 2, 3, 4, 5, 6, 7]
         r = randint(30, 60)
         self.Y_values = [[r, 44, 92, 11, 44, 95, 35],
@@ -41,7 +43,6 @@ class LineChartJSONView_Room1(ChartMixin,BaseLineChartView):
     def get_data(self):
         """Return 3 dataset to plot."""
         return self.Y_values
-
 line_chart = TemplateView.as_view(template_name='iotapp/line_chart.html')#line_chart
 line_chart_json = LineChartJSONView_Room1.as_view()
 

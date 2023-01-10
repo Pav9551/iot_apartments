@@ -14,18 +14,14 @@
         <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
         <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
         <script type="text/javascript">
-
         function callback(data, status) {
                 if (status == "success") {
                 var ctx = $("#myChart").get(0).getContext("2d");
-
                 new Chart(ctx, {
                     type: 'line', data: data,
-
                      options: {
                                 animation: false,
                      }
-
                 });
                 }
                 else {
@@ -34,7 +30,7 @@
                 setTimeout(getReading, 3000);
             }
             function getReading(){
-            $.get('{% url "iotapp:line_chart_json" %}', callback);
+            $.get('{% url 'iotapp:line_chart_json' id=1 %}', callback);
             }
             getReading();
         </script>
