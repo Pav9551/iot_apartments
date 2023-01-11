@@ -45,10 +45,5 @@ class lineChartJSONView(ChartMixin, BaseLineOptionsChartView):
 line_chart = TemplateView.as_view(template_name='iotapp/line_chart.html')#line_chart
 line_chart_json = lineChartJSONView.as_view()
 main_view = TemplateView.as_view(template_name='iotapp/index.html')
-
-def main_view(request):
-    return render(request, 'iotapp/index.html')
-def charts_view(request):
-    return render(request, 'iotapp/charts.html')
-def tables_view(request):
-    return render(request, 'iotapp/tables.html')
+charts_view = TemplateView.as_view(template_name='iotapp/charts.html')
+tables_view = TemplateView.as_view(template_name='iotapp/tables.html')
