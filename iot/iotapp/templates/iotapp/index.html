@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -762,10 +763,12 @@
     <script type="text/javascript" src="{% static 'js/custom/chart-area.js' %}"></script>
 
         <script type="text/javascript">
+
+            Chart.defaults.global.elements.line.fill = false;
             function getReading(){
             $.get('{% url 'iotapp:line_chart_json' id=1 %}', callback);
             $.get('{% url 'iotapp:line_chart_json' id=2 %}', callback);
-            setTimeout(getReading, 3000);
+            //setTimeout(getReading, 3000);
             }
             getReading();
         </script>
