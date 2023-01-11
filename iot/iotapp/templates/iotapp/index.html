@@ -144,11 +144,11 @@
             </div>
 
             <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
+            <!--<div class="sidebar-card d-none d-lg-flex">
                 <img class="sidebar-card-illustration mb-2" src="{% static 'img/undraw_rocket.svg' %}" alt="...">
                 <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
                 <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
-            </div>
+            </div>-->
 
         </ul>
         <!-- End of Sidebar -->
@@ -759,21 +759,9 @@
     <script src="{% static 'js/demo/chart-pie-demo.js' %}" ></script>
 
     <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/custom/chart-area.js' %}"></script>
+
         <script type="text/javascript">
-        function callback(data, status) {
-                if (status == "success") {
-                var roomid = data.options['roomid']
-                var ctx = document.getElementById("myChart"+roomid).getContext("2d");
-                new Chart(ctx, {
-                    type: 'line', data: data.data,options: data.options,
-                });
-                //alert(roomid);
-                }
-                else {
-		                alert("There was a problem");
-            	}
-                //setTimeout(getReading, 3000);
-            }
             function getReading(){
             $.get('{% url 'iotapp:line_chart_json' id=1 %}', callback);
             $.get('{% url 'iotapp:line_chart_json' id=2 %}', callback);
@@ -781,6 +769,7 @@
             }
             getReading();
         </script>
+
 
 
 
