@@ -26,7 +26,7 @@ class lineChartJSONView(ChartMixin, BaseLineOptionsChartView):
         return ["January", "February", "March", "April", "May", "June", "July"]
     def get_data(self):
         """Return 3 dataset to plot."""
-        print(self.kwargs['id'])
+        #print(self.kwargs['id'])
         r = randint(30, 60)
         return [[r, 44, 92, 11, 44, 95, 35],
                 [r, 92, 18, 3, 73, 87, 92],
@@ -41,9 +41,14 @@ class lineChartJSONView(ChartMixin, BaseLineOptionsChartView):
             "roomid": self.kwargs['id'],
         }
         return options
+
 line_chart = TemplateView.as_view(template_name='iotapp/line_chart.html')#line_chart
 line_chart_json = lineChartJSONView.as_view()
-
+main_view = TemplateView.as_view(template_name='iotapp/index.html')
 
 def main_view(request):
     return render(request, 'iotapp/index.html')
+def charts_view(request):
+    return render(request, 'iotapp/charts.html')
+def tables_view(request):
+    return render(request, 'iotapp/tables.html')
