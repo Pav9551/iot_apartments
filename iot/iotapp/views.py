@@ -9,6 +9,7 @@ from django.views import View
 from django.views.generic import TemplateView
 from chartjs.views.lines import BaseLineChartView,BaseLineOptionsChartView
 from chartjs.colors import next_color
+from ReadDatafromBase import ReadData
 class ChartMixin(object):
     def get_colors(self):
         #японские иероглифы цветов
@@ -26,7 +27,7 @@ class lineChartJSONView(ChartMixin, BaseLineOptionsChartView):
         return ["January", "February", "March", "April", "May", "June", "July"]
     def get_data(self):
         """Return 3 dataset to plot."""
-        print(self.kwargs['id'])
+
         r = randint(30, 60)
         return [[r, 44, 92, 11, 44, 95, 35],
                 [r, 92, 18, 3, 73, 87, 92],
@@ -39,9 +40,6 @@ class lineChartJSONView(ChartMixin, BaseLineOptionsChartView):
             #"responsive": False,
             "animation": False,
             "roomid": self.kwargs['id'],
-
-
-
         }
         return options
 #формируем Json для графика температуры
@@ -60,29 +58,41 @@ class TemperatureJSONView(BaseLineOptionsChartView):
         """Return 7 labels."""
         print(self.kwargs['id'])
         r = randint(30, 60)
-
-        '''def load_goods_from_base(self):
-            goods = Good.objects.all()
-            list_result = [entry.name for entry in goods]  # converts QuerySet into Python list
-            data = {'name': list_result}
-            self.excel_data_df = pd.DataFrame(data, columns=['name'])
-            print(self.excel_data_df)'''
-
-        self.X_values = [1, 2, 3, 4, 5, 6, 7]
-        self.Y_values = [[r, 44, 92, 11, 44, 95, 35],
-                         [r, 92, 18, 3, 73, 87, 92]]
+        temp = ReadData(1)
+        x, y = temp.read(name='temperature')
+        print(self.kwargs['id'])
+        self.X_values = x
+        self.Y_values = y
         return self.X_values
     def get_data(self):
         """Return 2 dataset to plot."""
         return self.Y_values
 
     def get_options(self):
+        '''scales: {
+            xAxes: [{
+                type: 'time',
+                time: {
+                    parser: 'YYYY-MM-DD HH:mm:ss',
+                    unit: 'day',
+                    displayFormats: {
+                        day: 'ddd'
+                    },
+                    min: '2017-10-02 18:43:53',
+                    max: '2017-10-09 18:43:53'
+                },
+                ticks: {
+                    source: 'data'
+                }
+            }]
+        },'''
         options = {
             "title": {"display": True, "text": f"Температура, С"},
             "elements": {"point": {"pointStyle": "rectRounded", "radius": 4}},
             #"responsive": False,
             "animation": False,
             "roomid": self.kwargs['id'],
+            "scales": {"xAxes": {"type": "time","time": {"tooltipFormat": "MM-DD-YYYY"}}},
         }
         return options
 
