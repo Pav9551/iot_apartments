@@ -4,6 +4,9 @@ import paho.mqtt.client as mqtt_client
 from iotapp.models import Building, Room, DeviceType, Plan, Device, Data
 from os import environ
 import sys
+from django.utils import timezone
+import pandas as pd
+import  datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 goods_path = (BASE_DIR / 'goods.xlsx').__str__()
@@ -26,10 +29,7 @@ topic_sub = [("cab1/sensor/#", 0),
             ("room10/sensor/#", 0),
             ("corridor1/sensor/#", 0),
             ("corridor2/sensor/#", 0),
-            ("room3/status", 0),
              ]
-
-
 # generate client ID with pub prefix randomly
 client_id = '123'
 username = 'mqtt_user'
@@ -66,32 +66,18 @@ def subscribe(client: mqtt_client):
         devices = Device.objects.filter(mqttPath = msg.topic)
         global count# костыль
         global listofdata  # костыль
-        deviceName = 'error'
-        print(msg.topic)
-        if len(msg.topic.split("/")) > 2:
-            deviceName = msg.topic.split("/")[2]
-            value = float(msg.payload.decode())
-        else:
-            deviceName = msg.topic.split("/")[1]
-            if deviceName == 'offline':
-                value = float(0)
-            else:
-                value = float(1)
-
         if len(devices) > 0:
             device = devices[0]
         else:
             #создание нового устройства
             print("обнаружено новое устройство")
             building, created = Building.objects.get_or_create(name="Yakor", address ="Москва, Потаповский переулок ст1", disabled = True)
-            room, created = Room.objects.get_or_create(name = msg.topic.split("/")[0], mqttPath = msg.topic,  disabled=True, building = building)
+            room, created = Room.objects.get_or_create(name = msg.topic.split("/")[0], mqttPath = msg.topic.split("/")[0],  disabled=True, building = building)
             deviceType, created  = DeviceType.objects.get_or_create(name = "ESP32")
             plan, created = Plan.objects.get_or_create(name="1 этаж", building = building)
-            print('*********************************')
-            print(len(msg.topic.split("/")))
-            device, created = Device.objects.get_or_create(name = deviceName, mqttPath = msg.topic,  positionX=0, positionY=0,
+            device, created = Device.objects.get_or_create(name = msg.topic.split("/")[2], mqttPath = msg.topic,  positionX=0, positionY=0,
             enabled = True, type = deviceType, room = room, plan = plan)
-        new_data = Data(name = deviceName, value = value, device = device)
+        new_data = Data(name = msg.topic.split("/")[2], value = float(msg.payload.decode()), device = device)
         if count < 10:
             listofdata.append(new_data)
             count = count + 1
@@ -99,7 +85,7 @@ def subscribe(client: mqtt_client):
         else:
             count = 0
             Data.objects.bulk_create(listofdata)
-            #print(listofdata)
+            print(listofdata)
             listofdata = []
 
     def on_disconnect(client, userdata, rc):
@@ -119,10 +105,29 @@ def main():
     subscribe(client)
     #publish(client,"OK")
     client.loop_forever()
+def readdata():
+    now = timezone.now()
+    day = timezone.timedelta(days=1)
+    min5 = timezone.timedelta(minutes=2)
+    delta = (now - day)
+    print(now)
+    print(delta)
+    #self.value, self.name, self.createdAt
+    room1_temperature = Data.objects.filter(name = 'room4_temperature', createdAt__gte = delta)\
+        .order_by('createdAt')
+    time_result = [entry.createdAt for entry in room1_temperature]  # converts QuerySet into Python list
+    value_result = [entry.value for entry in room1_temperature]  # converts QuerySet into Python list
+    df = pd.DataFrame({'time': time_result,
+                       'value': value_result})
+    print(df)
+    df.index = pd.to_datetime(df.time)
+    df.drop('time', axis=1, inplace=True)
+    df = df.resample('min').ffill().dropna()
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
         #Data.objects.all().delete()
-        main()
+        readdata()
 
 
 

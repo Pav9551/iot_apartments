@@ -60,6 +60,14 @@ class TemperatureJSONView(BaseLineOptionsChartView):
         """Return 7 labels."""
         print(self.kwargs['id'])
         r = randint(30, 60)
+
+        '''def load_goods_from_base(self):
+            goods = Good.objects.all()
+            list_result = [entry.name for entry in goods]  # converts QuerySet into Python list
+            data = {'name': list_result}
+            self.excel_data_df = pd.DataFrame(data, columns=['name'])
+            print(self.excel_data_df)'''
+
         self.X_values = [1, 2, 3, 4, 5, 6, 7]
         self.Y_values = [[r, 44, 92, 11, 44, 95, 35],
                          [r, 92, 18, 3, 73, 87, 92]]
