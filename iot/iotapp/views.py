@@ -36,9 +36,12 @@ class lineChartJSONView(ChartMixin, BaseLineOptionsChartView):
         options = {
             "title": {"display": True, "text": f"Room{self.kwargs['id']}"},
             "elements": {"point": {"pointStyle": "rectRounded", "radius": 4}},
-            "responsive": False,
+            #"responsive": False,
             "animation": False,
             "roomid": self.kwargs['id'],
+
+
+
         }
         return options
 line_chart = TemplateView.as_view(template_name='iotapp/line_chart.html')#line_chart
