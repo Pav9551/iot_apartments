@@ -44,9 +44,42 @@ class lineChartJSONView(ChartMixin, BaseLineOptionsChartView):
 
         }
         return options
+class TemperatureJSONView(BaseLineOptionsChartView):
+    def get_colors(self):
+        #японские иероглифы цветов
+        # 赤 / 緑 / 青　
+        #https://qtatsu.hatenablog.com/?page=1600594307
+        l = [(0, 0, 200), (0, 200, 0)]
+        return next_color(l)
+
+    def get_providers(self):
+        """Return names of datasets."""
+        return ["Room1", "Room2"]
+    def get_labels(self):
+        """Return 7 labels."""
+        print(self.kwargs['id'])
+        r = randint(30, 60)
+        self.X_values = [1, 2, 3, 4, 5, 6, 7]
+        self.Y_values = [[r, 44, 92, 11, 44, 95, 35],
+                         [r, 92, 18, 3, 73, 87, 92]]
+        return self.X_values
+    def get_data(self):
+        """Return 2 dataset to plot."""
+        return self.Y_values
+
+    def get_options(self):
+        options = {
+            "title": {"display": True, "text": f"Температура, С"},
+            "elements": {"point": {"pointStyle": "rectRounded", "radius": 4}},
+            #"responsive": False,
+            "animation": False,
+            "roomid": self.kwargs['id'],
+        }
+        return options
+
+
+
 line_chart = TemplateView.as_view(template_name='iotapp/line_chart.html')#line_chart
 line_chart_json = lineChartJSONView.as_view()
-
-
-def main_view(request):
-    return render(request, 'iotapp/index.html')
+main_view = TemplateView.as_view(template_name='iotapp/index.html')#line_chart
+temp_chart = TemperatureJSONView.as_view()

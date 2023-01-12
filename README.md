@@ -58,4 +58,7 @@ python manage.py runserver
 ```curl 
 http://127.0.0.1:8000/admin/
 ```
-
+если порт забился:
+```curl 
+sudo fuser -k 8000/tcp
+```
