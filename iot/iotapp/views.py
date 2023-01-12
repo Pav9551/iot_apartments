@@ -44,6 +44,7 @@ class lineChartJSONView(ChartMixin, BaseLineOptionsChartView):
 
         }
         return options
+#формируем Json для графика температуры
 class TemperatureJSONView(BaseLineOptionsChartView):
     def get_colors(self):
         #японские иероглифы цветов
