@@ -26,10 +26,7 @@ topic_sub = [("cab1/sensor/#", 0),
             ("room10/sensor/#", 0),
             ("corridor1/sensor/#", 0),
             ("corridor2/sensor/#", 0),
-            ("room3/status", 0),
              ]
-
-
 # generate client ID with pub prefix randomly
 client_id = '123'
 username = 'mqtt_user'
@@ -66,32 +63,18 @@ def subscribe(client: mqtt_client):
         devices = Device.objects.filter(mqttPath = msg.topic)
         global count# костыль
         global listofdata  # костыль
-        deviceName = 'error'
-        print(msg.topic)
-        if len(msg.topic.split("/")) > 2:
-            deviceName = msg.topic.split("/")[2]
-            value = float(msg.payload.decode())
-        else:
-            deviceName = msg.topic.split("/")[1]
-            if deviceName == 'offline':
-                value = float(0)
-            else:
-                value = float(1)
-
         if len(devices) > 0:
             device = devices[0]
         else:
             #создание нового устройства
             print("обнаружено новое устройство")
             building, created = Building.objects.get_or_create(name="Yakor", address ="Москва, Потаповский переулок ст1", disabled = True)
-            room, created = Room.objects.get_or_create(name = msg.topic.split("/")[0], mqttPath = msg.topic,  disabled=True, building = building)
+            room, created = Room.objects.get_or_create(name = msg.topic.split("/")[0], mqttPath = msg.topic.split("/")[0],  disabled=True, building = building)
             deviceType, created  = DeviceType.objects.get_or_create(name = "ESP32")
             plan, created = Plan.objects.get_or_create(name="1 этаж", building = building)
-            print('*********************************')
-            print(len(msg.topic.split("/")))
-            device, created = Device.objects.get_or_create(name = deviceName, mqttPath = msg.topic,  positionX=0, positionY=0,
+            device, created = Device.objects.get_or_create(name = msg.topic.split("/")[2], mqttPath = msg.topic,  positionX=0, positionY=0,
             enabled = True, type = deviceType, room = room, plan = plan)
-        new_data = Data(name = deviceName, value = value, device = device)
+        new_data = Data(name = msg.topic.split("/")[2], value = float(msg.payload.decode()), device = device)
         if count < 10:
             listofdata.append(new_data)
             count = count + 1
@@ -99,7 +82,7 @@ def subscribe(client: mqtt_client):
         else:
             count = 0
             Data.objects.bulk_create(listofdata)
-            #print(listofdata)
+            print(listofdata)
             listofdata = []
 
     def on_disconnect(client, userdata, rc):
@@ -123,15 +106,3 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         #Data.objects.all().delete()
         main()
-
-
-
-
-
-
-
-
-
-
-
-
