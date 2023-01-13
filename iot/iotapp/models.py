@@ -51,6 +51,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag)
     def __str__(self):
         return self.name
+
 class Good(models.Model):
     name = models.CharField(max_length=32, unique=True)
     def __str__(self):
@@ -118,6 +119,9 @@ class Device(models.Model):
     plan = models.ForeignKey(Plan, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
+
+    '''class Meta:
+        db_table = "devices"'''
 class Data(models.Model):
     name = models.TextField()
     value = models.FloatField()

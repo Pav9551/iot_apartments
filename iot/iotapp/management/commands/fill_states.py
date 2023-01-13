@@ -106,15 +106,3 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         #Data.objects.all().delete()
         main()
-
-
-
-
-
-
-
-
-
-
-
-

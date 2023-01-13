@@ -130,3 +130,4 @@ dmypy.json
 ./mosquitto/config/passwd
 
 /.idea/
+/iot/templates/startbootstrap-sb-admin-2-gh-pages/
