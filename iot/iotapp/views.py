@@ -53,14 +53,14 @@ class TemperatureJSONView(BaseLineOptionsChartView):
 
     def get_providers(self):
         """Return names of datasets."""
-        return ["Room1", "Room2"]
+        return ["№101", "№102"]
     def get_labels(self):
         """Return 7 labels."""
-        print(self.kwargs['id'])
+        #print(self.kwargs['id'])
         r = randint(30, 60)
-        temp = ReadData(1)
+        temp = ReadData()
         x, y = temp.read(name='temperature')
-        print(self.kwargs['id'])
+        #print(self.kwargs['id'])
         self.X_values = x
         self.Y_values = y
         return self.X_values
@@ -69,36 +69,86 @@ class TemperatureJSONView(BaseLineOptionsChartView):
         return self.Y_values
 
     def get_options(self):
-        '''scales: {
-            xAxes: [{
-                type: 'time',
-                time: {
-                    parser: 'YYYY-MM-DD HH:mm:ss',
-                    unit: 'day',
-                    displayFormats: {
-                        day: 'ddd'
-                    },
-                    min: '2017-10-02 18:43:53',
-                    max: '2017-10-09 18:43:53'
-                },
-                ticks: {
-                    source: 'data'
-                }
-            }]
-        },'''
         options = {
             "title": {"display": True, "text": f"Температура, С"},
             "elements": {"point": {"pointStyle": "rectRounded", "radius": 4}},
             #"responsive": False,
             "animation": False,
             "roomid": self.kwargs['id'],
-            "scales": {"xAxes": {"type": "time","time": {"tooltipFormat": "MM-DD-YYYY"}}},
         }
         return options
+class HumJSONView(BaseLineOptionsChartView):
+    def get_colors(self):
+        #японские иероглифы цветов
+        # 赤 / 緑 / 青　
+        #https://qtatsu.hatenablog.com/?page=1600594307
+        l = [(0, 0, 200), (0, 200, 0)]
+        return next_color(l)
 
+    def get_providers(self):
+        """Return names of datasets."""
+        return ["№101", "№102"]
+    def get_labels(self):
+        """Return 7 labels."""
+        #print(self.kwargs['id'])
+        r = randint(30, 60)
+        temp = ReadData()
+        x, y = temp.read(name='humidity')
+        #print(self.kwargs['id'])
+        self.X_values = x
+        self.Y_values = y
+        return self.X_values
+    def get_data(self):
+        """Return 2 dataset to plot."""
+        return self.Y_values
+
+    def get_options(self):
+        options = {
+            "title": {"display": True, "text": f"Влажность, %"},
+            "elements": {"point": {"pointStyle": "rectRounded", "radius": 4}},
+            #"responsive": False,
+            "animation": False,
+            "roomid": self.kwargs['id'],
+        }
+        return options
+class MQJSONView(BaseLineOptionsChartView):
+    def get_colors(self):
+        #японские иероглифы цветов
+        # 赤 / 緑 / 青　
+        #https://qtatsu.hatenablog.com/?page=1600594307
+        l = [(128, 128, 0), (0, 128, 128)]
+        return next_color(l)
+
+    def get_providers(self):
+        """Return names of datasets."""
+        return ["MQ2", "MQX"]
+    def get_labels(self):
+        """Return 7 labels."""
+        #print(self.kwargs['id'])
+        r = randint(30, 60)
+        temp = ReadData()
+        x, y = temp.readmq(name = f"room{self.kwargs['id']}_mq")
+        self.X_values = x
+        self.Y_values = y
+        return self.X_values
+    def get_data(self):
+        """Return 2 dataset to plot."""
+        return self.Y_values
+
+    def get_options(self):
+        options = {
+            "title": {"display": True, "text": f"Датчики газа, ед."},
+            "elements": {"point": {"pointStyle": "rectRounded", "radius": 4}},
+            #"responsive": False,
+            "animation": False,
+            "roomid": self.kwargs['id'],
+        }
+        return options
 
 
 line_chart = TemplateView.as_view(template_name='iotapp/line_chart.html')#line_chart
 line_chart_json = lineChartJSONView.as_view()
 main_view = TemplateView.as_view(template_name='iotapp/index.html')#line_chart
 temp_chart = TemperatureJSONView.as_view()
+hum_chart = HumJSONView.as_view()
+mq_chart = MQJSONView.as_view()
