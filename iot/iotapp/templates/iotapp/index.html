@@ -732,7 +732,9 @@
         <script type="text/javascript">
         Chart.defaults.global.elements.line.fill = false;
             function getReading(){
+
             $.get('{% url 'iotapp:temp_json' id=1 %}', callback_temp);
+
             $.get('{% url 'iotapp:hum_json' id=1 %}', callback_hum);
             $.get('{% url 'iotapp:mq_chart_json' id=1 %}', callback);
             $.get('{% url 'iotapp:mq_chart_json' id=2 %}', callback);

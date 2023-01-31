@@ -84,7 +84,7 @@ def subscribe(client: mqtt_client):
             #print(count)
         else:
             count = 0
-            Data.objects.bulk_create(listofdata)
+            #Data.objects.bulk_create(listofdata)
             #print(listofdata)
             listofdata = []
         if count_del < 10:
@@ -92,10 +92,15 @@ def subscribe(client: mqtt_client):
         else:
             count_del = 0
             now = timezone.now()
-            minut = timezone.timedelta(minutes=5)
+            minut = timezone.timedelta(minutes=60)
             delta = (now - minut)
-            data_del = Data.objects.filter(createdAt__lt=delta).delete()
+            print(delta)
+            data_del = Data.objects.filter(createdAt__lt=delta).order_by('-createdAt')#
             print (data_del)
+            data_del.delete()
+
+
+
 
     def on_disconnect(client, userdata, rc):
         if rc != 0:
