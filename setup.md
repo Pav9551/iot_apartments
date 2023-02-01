@@ -34,3 +34,21 @@ docker-compose exec mosquitto mosquitto_passwd -c /mosquitto/config/passwd mqtt_
 ввести пароль для первого пользователя
 
 docker-compose exec mosquitto mosquitto_passwd -b /mosquitto/config/passwd seconduser shoaCh3ohnokeathal6eeH2marei2o
+
+
+docker-compose run mqtttodb  pip3 install django-chartjs
+
+git шпаргалка 
+https://agladky.ru/blog/git-cheat-sheet/
+git config --list
+работа с ветками
+https://sysout.ru/rabota-s-vetkami-v-git/?ysclid=ldljbgmq21102141308
+
+Перед миграцией выключить 
+docker-compose stop mqtttodb
+
+После миграциеи включить 
+docker-compose start mqtttodb
+
+https://sysout.ru/rabota-s-vetkami-v-git/?ysclid=ldljbgmq21102141308
+
