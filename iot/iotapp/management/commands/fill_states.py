@@ -84,8 +84,8 @@ def subscribe(client: mqtt_client):
             #print(count)
         else:
             count = 0
-            #Data.objects.bulk_create(listofdata)
-            #print(listofdata)
+            Data.objects.bulk_create(listofdata)
+            print(listofdata)
             listofdata = []
         if count_del < 10:
             count_del = count_del + 1
