@@ -92,7 +92,7 @@ def subscribe(client: mqtt_client):
         else:
             count_del = 0
             now = timezone.now()
-            minut = timezone.timedelta(minutes=5)
+            minut = timezone.timedelta(minutes=60)
             delta = (now - minut)
             data_del = Data.objects.filter(createdAt__lt=delta).delete()
             print (data_del)
