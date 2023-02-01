@@ -13,3 +13,4 @@ openpyxl==3.0.10
 Django==3.2.16
 paho-mqtt==1.6.1
 psycopg2 == 2.9.5
+django-chartjs == 2.3.0
