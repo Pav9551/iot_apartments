@@ -4,7 +4,6 @@ import paho.mqtt.client as mqtt_client
 from iotapp.models import Building, Room, DeviceType, Plan, Device, Data
 from os import environ
 import sys
-from django.utils import timezone
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 goods_path = (BASE_DIR / 'goods.xlsx').__str__()
@@ -35,7 +34,6 @@ password = 'mqtt_user'
 deviceId = "1"
 listofdata = []
 count = 0
-count_del = 0
 def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
         if rc==0:
@@ -65,7 +63,6 @@ def subscribe(client: mqtt_client):
         devices = Device.objects.filter(mqttPath = msg.topic)
         global count# костыль
         global listofdata  # костыль
-        global count_del # костыль
         if len(devices) > 0:
             device = devices[0]
         else:
@@ -87,15 +84,6 @@ def subscribe(client: mqtt_client):
             Data.objects.bulk_create(listofdata)
             print(listofdata)
             listofdata = []
-        if count_del < 10:
-            count_del = count_del + 1
-        else:
-            count_del = 0
-            now = timezone.now()
-            minut = timezone.timedelta(minutes=60)
-            delta = (now - minut)
-            data_del = Data.objects.filter(createdAt__lt=delta).delete()
-            print (data_del)
 
     def on_disconnect(client, userdata, rc):
         if rc != 0:
