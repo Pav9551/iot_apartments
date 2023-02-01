@@ -57,4 +57,8 @@ docker-compose run  mqtttodb python manage.py migrate
 
 docker-compose run  mqtttodb python manage.py fill_states
 
+как настраивать postgre
+
+https://habr.com/ru/post/578744/
+
 
